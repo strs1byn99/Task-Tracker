@@ -15,3 +15,8 @@ npm start
 ``` 
 npm run server
 ```
+### To run on production mode (http://localhost:8000)
+```
+npm i -g serve
+serve -s build -p 8000
+```

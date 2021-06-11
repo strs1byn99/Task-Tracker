@@ -11,6 +11,11 @@ function AddTask({ onAdd }) {
       alert("Invalid Input")
       return
     }
+    if (text.length > 24) {
+      alert("Exceeds 24 characters")
+      return
+    }
+    // TODO : no length limit
 
     onAdd({ text, day, reminder })
     setText("")

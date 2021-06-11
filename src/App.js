@@ -6,6 +6,7 @@ import AddTask from "./components/AddTask";
 import Footer from "./components/Footer";
 import About from "./components/About";
 
+const axios = require('axios')
 const BASE_URL = "http://localhost:5000/tasks"
 
 const App = () => {
@@ -60,6 +61,17 @@ const App = () => {
     setTasks(tasks.filter((each) => each.id !== id))
   }
 
+  // Edit Task
+  const editTask = async (id, task) => {
+    axios.put(`${BASE_URL}/${id}`, {
+     text: task.text,
+     day: task.day,
+     reminder: task.reminder 
+    }).then(resp => {
+      console.log(resp.data)
+    })
+  }
+
   // Toggle Reminder
   const toggleReminder = async (id) => {
     // make changes on the Server
@@ -95,8 +107,10 @@ const App = () => {
             {showAddTask && <AddTask onAdd={addTask} />}
             {tasks.length > 0 ? 
               <Tasks tasks={tasks} 
+                onEdit={editTask}
                 onDelete={deleteTask}
-                onToggle={toggleReminder} />
+                onToggle={toggleReminder}
+                onFetchSingle={fetchTask} />
               : 'No Tasks To Show'}
           </div>
          )} />
